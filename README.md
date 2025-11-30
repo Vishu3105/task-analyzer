@@ -1,58 +1,72 @@
-Smart Task Analyzer
+# 🧠Smart Task Analyzer #
 
-Overview
+## Overview
 
 Smart Task Analyzer is a mini web application that intelligently scores and prioritizes tasks to help users decide what to work on first. Each task is evaluated based on urgency, importance, effort, and dependencies. The system supports multiple prioritization strategies and provides clear explanations for every score.
 
 This project was built as part of the Singularium Technologies – Software Development Intern technical assessment.
 
-Features
+---
+# ✨Features
 
--Add tasks using an admin-like form or JSON input
--Intelligent priority scoring with explanations
--Multiple sorting strategies:
- -Smart Balance
- -Deadline Driven
- -Fastest Wins
- -High Impact
--Visual priority indicators (High / Medium / Low)
--Responsive UI (desktop & mobile)
--Database-backed task suggestions (Top 3)
--Robust handling of missing/invalid data
--Unit tests for core scoring logic
+- Add tasks using an admin-like form or JSON input
+- Intelligent priority scoring with explanations
+- Multiple sorting strategies:
+  - Smart Balance
+  - Deadline Driven
+  - Fastest Wins
+  - High Impact
+- Visual priority indicators (High / Medium / Low)
+- Responsive UI (desktop & mobile)
+- Database-backed task suggestions (Top 3)
+- Robust handling of missing/invalid data
+- Unit tests for core scoring logic
+---
+## 🛠Tech Stack
 
-Tech Stack
+- #### Backend: Python 3.8+, Django 4.x 
+- #### Frontend: HTML5, CSS3, Vanilla JavaScript
+- #### Database: SQLite (default Django DB)
+- #### Testing: Django Test Framework
+---
+## 🚀 Setup Instructions
 
-Backend: Python 3.8+, Django 4.x
-Frontend: HTML5, CSS3, Vanilla JavaScript
-Database: SQLite (default Django DB)
-Testing: Django Test Framework
-
-Setup Instructions
-1. Clone the repository
-git clone <your-github-repo-url>
+### 1. Clone the Repository
+bash
+```
+git clone <github-repo-url>
 cd task-analyzer
-
-2. Create and activate virtual environment
+```
+### 2. Create and activate virtual environment
+```
 python -m venv venv
 venv\Scripts\Activate   # Windows
-# source venv/bin/activate  # macOS/Linux
-
-3. Install dependencies
+source venv/bin/activate  # macOS/Linux
+```
+### 3. Install dependencies
+```
 pip install -r requirements.txt
-
-4. Run migrations
+```
+### 4. Run migrations
+```
 cd backend
 python manage.py migrate
-
-5. Start the server
+```
+### 5. Start the server
+```
 python manage.py runserver
-
-6. Open the app
-
+```
+### 6. Open the app
+```
 App UI: http://127.0.0.1:8000/
 
 Admin: http://127.0.0.1:8000/admin/
+```
+## API Endpoints
+
+- `POST /api/tasks/analyze/?strategy=...`
+- `GET /api/tasks/suggest/?strategy=...`
+
 
 Algorithm Explanation (Priority Scoring)
 
