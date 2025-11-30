@@ -113,4 +113,23 @@ button:hover {
     flex: 1;
 }
 
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .panel {
+        width: 100%;
+    }
+
+    textarea {
+        height: 180px;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+}
 
