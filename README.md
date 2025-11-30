@@ -25,7 +25,7 @@ This project was built as part of the Singularium Technologies – Software Deve
 ## 🛠 Tech Stack
 
 - #### Backend: Python 3.8+, Django 4.x 
-- #### Frontend: HTML5, CSS3, Vanilla JavaScript
+- #### Frontend: HTML5, CSS3, JavaScript
 - #### Database: SQLite (default Django DB)
 - #### Testing: Django Test Framework
 ---
@@ -105,6 +105,34 @@ Different strategies rebalance these components:
 Each task’s final score is a weighted combination of these components, and the task list is sorted by score in descending order.  
 Each score also includes a human-readable explanation describing why the task received that priority.
 
+A key design goal of the scoring algorithm was explainability. Instead of returning only a
+numerical priority value, the system also generates a human-readable explanation for
+each task. This ensures users can understand how urgency, importance, effort, and
+selected strategy contributed to the final score. The algorithm uses additive scoring
+rather than hard thresholds so that tasks can be compared smoothly across multiple
+dimensions, resulting in more realistic and flexible prioritization behavior.
+
+---
+## 🤔 Design Decisions
+
+- Used an additive/scored-based priority calculation instead of rule-based ranking to
+  allow smoother comparison between tasks.
+
+- Implemented multiple prioritization strategies by re-weighting a single core scoring
+  function, avoiding code duplication and simplifying future extensions.
+
+- Chose to handle missing or invalid task data using safe default values to maximize
+  robustness and prevent runtime failures.
+
+- Treated effort as a “quick win” indicator rather than only a penalty, encouraging
+  completion of smaller tasks when appropriate.
+
+- Represented task dependencies using task ID lists instead of a visual dependency
+  graph to keep the implementation simple and focused within the assignment scope.
+
+- Built the frontend using plain HTML, CSS, and JavaScript to reduce complexity and
+  maintain alignment with the project requirements.
+
 ---
 ## ⚠️ Handling Edge Cases
 
@@ -148,18 +176,33 @@ python manage.py test tasks
 
 | Task                         | Time       |
 | ---------------------------- | ---------- |
-| Project setup                | 40 minutes |
+| Project setup                | 30 minutes |
 | Scoring algorithm design     | 90 minutes |
-| Backend APIs                 | 60 minutes |
-| Frontend UI & responsiveness | 90 minutes |
+| Backend APIs                 | 90 minutes |
+| Frontend UI & responsiveness | 120 minutes|
 | Testing & debugging          | 30 minutes |
 | Documentation                | 60 minutes |
+
+---
+## 🏆 Bonus Challenges Attempted
+
+- **Unit Tests:**  
+  Wrote unit tests for the task scoring algorithm to validate critical behaviors such as
+  overdue task prioritization, strategy-specific weighting (e.g., Fastest Wins), and
+  graceful handling of missing task data. These tests help ensure correctness and
+  maintainability of the core logic.
+
+The remaining optional challenges (dependency graph visualization, date intelligence,
+Eisenhower matrix view, and learning system) were not implemented due to time
+constraints and scope prioritization.
 
 ---
 ## 📈 Future Improvements
 
 - Checkbox-based dependency selection (instead of manual IDs)
 - Circular dependency detection and visualization
+- Date Intelligence: Consider weekends/holidays when calculating urgency 
+- Eisenhower Matrix View: Display tasks on a 2D grid (Urgent vs Important)
 - User-configurable strategy weights
 - Persistent frontend task storage
 - Authentication & multi-user support
