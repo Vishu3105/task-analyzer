@@ -1,4 +1,4 @@
-# 🧠Smart Task Analyzer #
+# 🧠 Smart Task Analyzer #
 
 ## Overview
 
@@ -7,7 +7,7 @@ Smart Task Analyzer is a mini web application that intelligently scores and prio
 This project was built as part of the Singularium Technologies – Software Development Intern technical assessment.
 
 ---
-# ✨Features
+# ✨ Features
 
 - Add tasks using an admin-like form or JSON input
 - Intelligent priority scoring with explanations
@@ -22,7 +22,7 @@ This project was built as part of the Singularium Technologies – Software Deve
 - Robust handling of missing/invalid data
 - Unit tests for core scoring logic
 ---
-## 🛠Tech Stack
+## 🛠 Tech Stack
 
 - #### Backend: Python 3.8+, Django 4.x 
 - #### Frontend: HTML5, CSS3, Vanilla JavaScript
@@ -62,92 +62,109 @@ App UI: http://127.0.0.1:8000/
 
 Admin: http://127.0.0.1:8000/admin/
 ```
-## API Endpoints
+---
+## 🔗 API Endpoints
 
-- `POST /api/tasks/analyze/?strategy=...`
-- `GET /api/tasks/suggest/?strategy=...`
+| Method | Endpoint                           | Description                  |
+| ------ | ---------------------------------- | ---------------------------- |
+| POST   | `/api/tasks/analyze/?strategy=...` | Analyze and prioritize tasks |
+| GET    | `/api/tasks/suggest/?strategy=...` | Get top 3 task suggestions   |
+
+---
+
+## 🧮 Algorithm Explanation (Priority Scoring)
+
+The core of the application is the `calculate_task_score` function.  
+Each task is evaluated using the following components:
+
+### 1. Urgency
+- Based on the difference between today’s date and the task’s due date
+- Overdue tasks receive a significant score boost
+- Tasks due soon score higher than those with distant deadlines
+
+### 2. Importance
+- User-defined value between **1–10**
+- Importance is multiplied to give it meaningful weight in final scoring
+
+### 3. Effort (Quick Wins)
+- Low-effort tasks are rewarded to encourage fast progress
+- Very small tasks receive bonus points
+- Large tasks receive a slight penalty to reduce blocking behavior
 
 
-Algorithm Explanation (Priority Scoring)
-
-The core of the application is the calculate_task_score function. Each task is scored using multiple components:
-
-1. Urgency
-Calculated based on the difference between today’s date and the task’s due date.
-Overdue tasks receive a large boost.
-Tasks due soon receive progressively higher scores than distant deadlines.
-
-2. Importance
-User-defined value on a scale of 1–10.
-Importance is multiplied to give it meaningful weight in the final score.
-
-3. Effort (Quick Wins)
-Lower-effort tasks are rewarded to encourage quick progress.
-Very small tasks receive a bonus.
-Large tasks receive a small penalty to avoid blocking momentum.
-
-4. Strategy-Based Weighting
+### 4. Strategy-Based Weighting
 Different strategies rebalance these components:
 
-Smart Balance: Even weighting across urgency, importance, and effort.
+| Strategy        | Description                                           |
+| --------------- | ----------------------------------------------------- |
+| Smart Balance   | Even weighting across urgency, importance, and effort |
+| Deadline Driven | Urgency is heavily prioritized                        |
+| Fastest Wins    | Low effort is heavily prioritized                     |
+| High Impact     | Importance is heavily prioritized                     |
 
-Deadline Driven: Urgency is heavily weighted.
-
-Fastest Wins: Low effort is heavily weighted.
-
-High Impact: Importance is heavily weighted.
-
-Each task’s final score is a weighted combination of these components, and the task list is sorted by score in descending order.
+Each task’s final score is a weighted combination of these components, and the task list is sorted by score in descending order.  
 Each score also includes a human-readable explanation describing why the task received that priority.
 
-Handling Edge Cases
+---
+## ⚠️ Handling Edge Cases
 
-Missing or invalid due dates: Treated as low urgency.
-Missing importance: Defaults to a neutral value (5).
-Missing estimated hours: Defaults to a small task assumption.
-Invalid JSON input: Rejected with clear error messages.
-Strategy not provided: Defaults to Smart Balance.
-This approach prevents crashes and ensures useful output even with imperfect data.
+- Missing or invalid due dates → Treated as low urgency  
+- Missing importance → Defaults to a neutral value of **5**  
+- Missing estimated hours → Assumed to be a small task  
+- Invalid JSON input → Rejected with clear error messages  
+- Strategy not provided → Defaults to **Smart Balance**
 
-Visual Priority Indicators
+This design prevents crashes and ensures meaningful output even with imperfect data.
+
+---
+## 🚦 Visual Priority Indicators
 
 Tasks are visually categorized:
 
-High Priority → Red
-Medium Priority → Amber
-Low Priority → Green
+| Priority | Color    |
+| -------- | -------- |
+| High     | 🔴 Red   |
+| Medium   | 🟠 Amber |
+| Low      | 🟢 Green |
 
 This allows users to understand urgency at a glance.
 
-Unit Tests
+---
+## 🧪 Unit Tests
 
 Three unit tests validate the core scoring logic:
 
-Overdue tasks rank higher than future tasks.
-Fastest Wins strategy favors low-effort tasks.
-Missing fields are handled gracefully without errors.
+ - Overdue tasks rank higher than future tasks.
+ - Fastest Wins strategy favors low-effort tasks.
+ - Missing fields are handled gracefully without errors.
 
 Run tests using:
-
+```
 python manage.py test tasks
+```
 
-Time Breakdown
+---
+## ⏱️Time Breakdown
 
-Project setup: 40 minutes
-Scoring algorithm design: 90 minutes
-Backend APIs: 60 minutes
-Frontend UI & responsiveness: 90 minutes
-Testing & debugging: 30 minutes
-Documentation: 60 minutes
+| Task                         | Time       |
+| ---------------------------- | ---------- |
+| Project setup                | 40 minutes |
+| Scoring algorithm design     | 90 minutes |
+| Backend APIs                 | 60 minutes |
+| Frontend UI & responsiveness | 90 minutes |
+| Testing & debugging          | 30 minutes |
+| Documentation                | 60 minutes |
 
-Future Improvements
+---
+## 📈 Future Improvements
 
-Checkbox-based dependency selection (instead of manual IDs)
-Circular dependency detection and visualization
-User-configurable strategy weights
-Persistent frontend task storage
-Authentication & multi-user support
+- Checkbox-based dependency selection (instead of manual IDs)
+- Circular dependency detection and visualization
+- User-configurable strategy weights
+- Persistent frontend task storage
+- Authentication & multi-user support
 
-Conclusion
+---
+## ✅ Conclusion
 
 This project demonstrates clean backend design, thoughtful algorithmic decision-making, frontend usability, and robust error handling. The focus was on clarity, correctness, and explainability rather than over-engineering.
