@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Task Analyzer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<h1>Smart Task Analyzer</h1>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+    <div class="panel">
+        <h2>Input Tasks</h2>
+
+        <!-- Input taking form -->
+        <form id="taskForm" onsubmit="return false;">
+            <div class="field">
+                <label for="title"><strong>Title</strong></label>
+                <input type="text" id="title" placeholder="Enter Your Task">
+            </div>
+
+            <!-- Row 1 -->
+            <div class="form-row">
+                <div class="field">
+                    <label for="due_date"><strong>Due date</strong></label>
+                    <input type="date" id="due_date">
+                </div>
+
+                <div class="field">
+                    <label for="estimated_hours"><strong>Estimated hours</strong></label>
+                    <input type="number" id="estimated_hours" min="1" value="1">
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="form-row">
+                <div class="field">
+                    <label for="importance"><strong>Importance (1-10)</strong></label>
+                    <input type="number" id="importance" min="1" max="10" value="5">
+                </div>
+
+                <div class="field">
+                    <label for="dependencies"><strong>Dependencies (IDs)</strong></label>
+                    <input type="text" id="dependencies" placeholder="1,2,3">
+                </div>
+            </div>
+
+
+            <button id="addTaskBtn">Add Task</button>
+        </form>
+
+        <hr>
+        <!-- "Tasks you add above will appear here as JSON array." -->
+        <h3>Input Tasks <small>(JSON)</small></h3>
+        <textarea id="taskInput" rows="10" placeholder='Tasks you add above will appear here.'></textarea>
+
+        <br><br>
+
+        <label for="strategy"><strong>Sorting Strategy:</strong></label><br>
+        <select id="strategy">
+            <option value="smart">Smart Balance</option>
+            <option value="deadline">Deadline Driven</option>
+            <option value="fastest">Fastest Wins</option>
+            <option value="impact">High Impact</option>
+        </select>
+
+        <br><br>
+
+        <button id="analyzeBtn">Analyze Tasks</button>
+        <button id="suggestBtn">Get Suggestions (from DB)</button>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel">
+        <h2>Results</h2>
+        <div id="results">
+            <p>No results yet.</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
